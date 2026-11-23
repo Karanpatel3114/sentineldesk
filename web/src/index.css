@@ -1,0 +1,386 @@
+@import "tailwindcss";
+
+/*
+ * SentinelDesk design system.
+ *
+ * Direction: a quiet control surface. Charcoal panels on a near-black canvas,
+ * large light numerals, white pill controls, and one accent per meaning.
+ * Dark is the default; a warm-neutral light theme is available in Settings.
+ *
+ * Semantic colour (one meaning each, used everywhere):
+ *   coral   critical incident / on-call      --oncall
+ *   white   primary action, selected segment --primary
+ *   amber   human review / uncertainty       --review
+ *   teal    ready, safe, resolved            --auto
+ *   blue    links, focus, selection          --accent
+ *   violet  AI-generated content             --ai
+ * Status colour always comes with an icon and a text label (WCAG 1.4.1).
+ *
+ * Depth: three surface steps plus a hairline border. Blur is kept for the
+ * app chrome (sidebar, top bar, dialogs), never on content.
+ *
+ * Spacing uses Tailwind's 4px scale. Radius by element type:
+ *   chips 6px, inputs 10px, panels 16px; buttons, segments, icon chips round.
+ * Control heights: 32px (sm), 36px (md), 44px (lg).
+ */
+:root {
+  color-scheme: dark;
+
+  --page: #0b0b0d;
+  --wash-1: rgb(255 255 255 / 0.025);
+  --wash-2: rgb(255 255 255 / 0);
+
+  --surface: #151517;
+  --surface-2: #111113;
+  --surface-3: #222226;
+  --surface-solid: #151517;
+  --chrome: rgb(13 13 15 / 0.88);
+  --dialog: #18181b;
+  --scrim: rgb(0 0 0 / 0.62);
+
+  --border: rgb(255 255 255 / 0.07);
+  --border-strong: rgb(255 255 255 / 0.13);
+
+  --ink: #f5f5f6;
+  --ink-2: #c7c7cc;
+  --muted: #8f8f97; /* >= 4.9:1 on every dark surface (checked) */
+
+  --brand: #f5f5f6;
+  --primary: #f5f5f6; /* white pill: primary buttons, selected segments, tooltips */
+  --primary-hover: #ffffff;
+  --on-primary: #0b0b0d;
+  --accent: #8fb0ff; /* links, focus, selection */
+  --accent-strong: #b3c8ff;
+  --accent-soft: rgb(143 176 255 / 0.12);
+  --focus: #8fb0ff;
+  --on-accent: #0b0b0d;
+  --on-route: #0b0b0d;
+
+  --auto: #5fd4a8;
+  --auto-soft: rgb(95 212 168 / 0.12);
+  --review: #f2b84b;
+  --review-soft: rgb(242 184 75 / 0.12);
+  --oncall: #ff7a57;
+  --oncall-soft: rgb(255 122 87 / 0.12);
+  --ai: #a99bff;
+  --ai-soft: rgb(169 155 255 / 0.13);
+
+  --p-high: var(--oncall);
+  --p-high-soft: var(--oncall-soft);
+  --p-medium: #e3a86a;
+  --p-medium-soft: rgb(227 168 106 / 0.12);
+  --p-low: #a2a8b8;
+  --p-low-soft: rgb(162 168 184 / 0.12);
+
+  --chart-high: #ff7a57;
+  --chart-medium: #f2b84b;
+  --chart-low: #7c8db5;
+  --chart-bar: #8fb0ff;
+  --grid: rgb(255 255 255 / 0.06);
+  --axis: rgb(255 255 255 / 0.16);
+
+  --shadow: inset 0 1px 0 rgb(255 255 255 / 0.03);
+  --shadow-pop: 0 32px 80px -24px rgb(0 0 0 / 0.85), 0 0 0 1px rgb(255 255 255 / 0.08);
+
+  --note: #2a2412;
+  --note-border: #5e4f1c;
+}
+
+/* Light theme: chosen in Settings, or "System" on a light OS. */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --page: #ecebe7;
+  --wash-1: rgb(255 255 255 / 0.5);
+  --wash-2: rgb(255 255 255 / 0);
+
+  --surface: #ffffff;
+  --surface-2: #f6f5f2;
+  --surface-3: #ebe9e4;
+  --surface-solid: #ffffff;
+  --chrome: rgb(246 245 242 / 0.88);
+  --dialog: #ffffff;
+  --scrim: rgb(20 20 25 / 0.40);
+
+  --border: rgb(20 20 25 / 0.08);
+  --border-strong: rgb(20 20 25 / 0.15);
+
+  --ink: #121214;
+  --ink-2: #3a3a40;
+  --muted: #64646c; /* >= 4.8:1 on every light surface (checked) */
+
+  --brand: #121214;
+  --primary: #121214;
+  --primary-hover: #000000;
+  --on-primary: #ffffff;
+  --accent: #2f5bd3;
+  --accent-strong: #2148ad;
+  --accent-soft: rgb(47 91 211 / 0.08);
+  --focus: #2f5bd3;
+  --on-accent: #ffffff;
+  --on-route: #ffffff;
+
+  --auto: #0a7a5c;
+  --auto-soft: #e2f4ec;
+  --review: #8a5500;
+  --review-soft: #fbf0d9;
+  --oncall: #b53a0a;
+  --oncall-soft: #fdebe3;
+  --ai: #6447c7;
+  --ai-soft: #efebfb;
+
+  --p-high: var(--oncall);
+  --p-high-soft: var(--oncall-soft);
+  --p-medium: #93560f;
+  --p-medium-soft: #f8ecdc;
+  --p-low: #565c6e;
+  --p-low-soft: #eeeef1;
+
+  --chart-high: #e4572e;
+  --chart-medium: #e0a030;
+  --chart-low: #8792ad;
+  --chart-bar: #2f5bd3;
+  --grid: rgb(20 20 25 / 0.07);
+  --axis: rgb(20 20 25 / 0.18);
+
+  --shadow: 0 1px 2px rgb(20 20 25 / 0.04);
+  --shadow-pop: 0 28px 64px -24px rgb(20 20 25 / 0.35), 0 0 0 1px rgb(20 20 25 / 0.06);
+
+  --note: #fdf6dc;
+  --note-border: #e6cf78;
+}
+@media (prefers-color-scheme: light) {
+  :root[data-theme="system"] {
+    color-scheme: light;
+
+    --page: #ecebe7;
+    --wash-1: rgb(255 255 255 / 0.5);
+    --wash-2: rgb(255 255 255 / 0);
+
+    --surface: #ffffff;
+    --surface-2: #f6f5f2;
+    --surface-3: #ebe9e4;
+    --surface-solid: #ffffff;
+    --chrome: rgb(246 245 242 / 0.88);
+    --dialog: #ffffff;
+    --scrim: rgb(20 20 25 / 0.40);
+
+    --border: rgb(20 20 25 / 0.08);
+    --border-strong: rgb(20 20 25 / 0.15);
+
+    --ink: #121214;
+    --ink-2: #3a3a40;
+    --muted: #64646c; /* >= 4.8:1 on every light surface (checked) */
+
+    --brand: #121214;
+    --primary: #121214;
+    --primary-hover: #000000;
+    --on-primary: #ffffff;
+    --accent: #2f5bd3;
+    --accent-strong: #2148ad;
+    --accent-soft: rgb(47 91 211 / 0.08);
+    --focus: #2f5bd3;
+    --on-accent: #ffffff;
+    --on-route: #ffffff;
+
+    --auto: #0a7a5c;
+    --auto-soft: #e2f4ec;
+    --review: #8a5500;
+    --review-soft: #fbf0d9;
+    --oncall: #b53a0a;
+    --oncall-soft: #fdebe3;
+    --ai: #6447c7;
+    --ai-soft: #efebfb;
+
+    --p-high: var(--oncall);
+    --p-high-soft: var(--oncall-soft);
+    --p-medium: #93560f;
+    --p-medium-soft: #f8ecdc;
+    --p-low: #565c6e;
+    --p-low-soft: #eeeef1;
+
+    --chart-high: #e4572e;
+    --chart-medium: #e0a030;
+    --chart-low: #8792ad;
+    --chart-bar: #2f5bd3;
+    --grid: rgb(20 20 25 / 0.07);
+    --axis: rgb(20 20 25 / 0.18);
+
+    --shadow: 0 1px 2px rgb(20 20 25 / 0.04);
+    --shadow-pop: 0 28px 64px -24px rgb(20 20 25 / 0.35), 0 0 0 1px rgb(20 20 25 / 0.06);
+
+    --note: #fdf6dc;
+    --note-border: #e6cf78;
+  }
+}
+
+/* "Reduce transparency" gets fully solid surfaces. */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --surface: var(--surface-solid);
+    --surface-2: var(--surface-solid);
+    --chrome: var(--surface-solid);
+    --dialog: var(--surface-solid);
+  }
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-chrome: var(--chrome);
+  --color-dialog: var(--dialog);
+  --color-scrim: var(--scrim);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-on-route: var(--on-route);
+  --color-auto: var(--auto);
+  --color-auto-soft: var(--auto-soft);
+  --color-review: var(--review);
+  --color-review-soft: var(--review-soft);
+  --color-oncall: var(--oncall);
+  --color-oncall-soft: var(--oncall-soft);
+  --color-ai: var(--ai);
+  --color-ai-soft: var(--ai-soft);
+  --color-p-high: var(--p-high);
+  --color-p-high-soft: var(--p-high-soft);
+  --color-p-medium: var(--p-medium);
+  --color-p-medium-soft: var(--p-medium-soft);
+  --color-p-low: var(--p-low);
+  --color-p-low-soft: var(--p-low-soft);
+  --shadow-soft: var(--shadow);
+  --shadow-pop: var(--shadow-pop);
+  --color-note: var(--note);
+  --color-note-line: var(--note-border);
+
+  /* Plex Sans for the interface (light weight for big numbers and titles),
+     Plex Mono for IDs. */
+  --font-sans: "IBM Plex Sans Variable", "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "IBM Plex Sans Variable", "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+html {
+  font-size: 16px;
+}
+body {
+  min-height: 100dvh;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--page);
+  background-image:
+    radial-gradient(70rem 36rem at 0% -10%, var(--wash-1), transparent 60%),
+    radial-gradient(60rem 30rem at 100% 0%, var(--wash-2), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Page titles: large and light, like the big numerals. */
+h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+/* Big light numerals for metrics (78%, 7h 42m style). */
+.numeral {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Numbers that change or get compared: metrics, IDs, waiting times. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Frosted app chrome only. */
+.glass,
+.glass-strong {
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root {
+    --chrome: var(--surface-solid);
+    --dialog: var(--surface-solid);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glass-strong {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Visible, consistent focus ring for keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+/* Skeleton shimmer, disabled for users who prefer reduced motion. */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-3) 25%, var(--surface-2) 50%, var(--surface-3) 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 6px;
+}
+@keyframes flash {
+  0%, 100% { background-color: transparent; }
+  30% { background-color: var(--accent-soft); }
+}
+.flash { animation: flash 1.6s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.sr-only-focusable:not(:focus) {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
