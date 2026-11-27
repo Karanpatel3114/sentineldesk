@@ -16,6 +16,10 @@ eval/results/*
 .env.*
 !.env.example
 web/.env.local
+kaggle.json
+credentials*.json
+*.pem
+*.key
 
 # --- python ---
 .venv/

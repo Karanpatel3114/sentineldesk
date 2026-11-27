@@ -34,7 +34,7 @@
 | | |
 |---|---|
 | **Catches outages** | 90.7% of high-priority incidents in the 5,718-ticket holdout go to a human, even though the classifier alone finds only 69.2%. |
-| **Grounded drafts** | Every AI reply cites past resolved tickets. 100% of sampled citations pass validation, and invented money or percentage figures are blocked. |
+| **Grounded drafts** | Every supported AI draft cites past resolved tickets. When the evidence is thin, it writes a short holding reply with no claims. 100% of sampled citations pass validation, and invented money or percentage figures are blocked. |
 | **Cross-lingual** | A German ticket can be answered from English precedents through one shared embedding space. |
 | **Privacy first** | Emails, IBANs, card numbers, IPs and phone numbers are masked before any text reaches the LLM. |
 | **Major-incident radar** | A burst of similar tickets in 15 minutes raises a banner in the console. |
@@ -218,7 +218,17 @@ Full rules: [docs/data-and-leakage.md](docs/data-and-leakage.md).
 
 ## Dataset
 
-[Tobi-Bueck/customer-support-tickets](https://huggingface.co/datasets/Tobi-Bueck/customer-support-tickets) (CC-BY-NC-4.0).
+[Customer Support Tickets](https://huggingface.co/datasets/Tobi-Bueck/customer-support-tickets) by Tobias Bueck, licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). The data was split into a knowledge base and a holdout test set, and is used here for non-commercial research and demonstration only. The MIT license does not apply to the data.
+
+The embedding model [`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2) is licensed under Apache-2.0.
+
+## License
+
+The code is released under the [MIT License](LICENSE). The dataset keeps its own CC BY-NC 4.0 license (see above).
+
+SentinelDesk is an independent project. It is not affiliated with or endorsed by Google. Product names in sample tickets (such as SAP S/4HANA and Amazon Alexa) are trademarks of their owners.
+
+Security and license checks: [docs/SECURITY_AND_COMPLIANCE.md](docs/SECURITY_AND_COMPLIANCE.md).
 
 ## Author
 
