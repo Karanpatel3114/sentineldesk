@@ -82,7 +82,7 @@ The audit could not read the Dependabot and secret-scanning settings because the
 
 ## 5. Licenses
 
-**Project license:** at audit time there was no `LICENSE` file. **Fixed (`7f0b5ee`):** added an MIT `LICENSE` with `Copyright (c) 2026 Karan Patel`, which states that the dataset in `data/` is excluded and stays under CC BY-NC 4.0. Also added a License section to the README and `"license": "MIT"` to `web/package.json`.
+**Project license:** at audit time there was no `LICENSE` file. **Fixed (`7f0b5ee`):** added an MIT `LICENSE` with `Copyright (c) 2026 Karan Patel`. The README states that the dataset in `data/` is excluded and stays under CC BY-NC 4.0. Also added a License section to the README and `"license": "MIT"` to `web/package.json`.
 
 **Python dependencies** (`pip-licenses`, 77 packages): MIT, BSD, Apache-2.0, ISC, PSF and MPL-2.0. **No GPL, AGPL or LGPL.** The MPL-2.0 packages (`certifi`, part of `tqdm`) are file-level copyleft and are fine to use unmodified. One package reports its license as just "License". It is a permissive package whose metadata is incomplete.
 
@@ -143,7 +143,7 @@ Not used: hosting (Render, Vercel, Hugging Face Spaces), Postgres, Redis, tracin
 
 | Commit | Change |
 |---|---|
-| `7f0b5ee` | Added an MIT `LICENSE` (code only; the dataset stays CC BY-NC 4.0), full dataset and model credits, a README License section, a not-affiliated disclaimer, the narrower "grounded drafts" wording, extra `.gitignore` guards, and the `license` field in `web/package.json`. |
+| `7f0b5ee`, plus a follow-up | Added an MIT `LICENSE` (the dataset note lives in the README, so GitHub detects plain MIT), full dataset and model credits, a README License section, a not-affiliated disclaimer, the narrower "grounded drafts" wording, extra `.gitignore` guards, and the `license` field in `web/package.json`. |
 
 Not applied, by choice: the hardening items in section 3. They matter only if the API is hosted publicly, and the app currently runs on `localhost` only. The fake-email domain nit in section 6 was also left as is.
 
